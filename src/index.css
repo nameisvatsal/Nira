@@ -1,0 +1,600 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+
+    --nira-50: 196 100% 95%;
+    --nira-100: 195 100% 90%;
+    --nira-200: 196 100% 80%;
+    --nira-300: 196 100% 70%;
+    --nira-400: 196 100% 60%;
+    --nira-500: 196 100% 50%;
+    --nira-600: 196 100% 40%;
+    --nira-700: 196 100% 30%;
+    --nira-800: 196 100% 20%;
+    --nira-900: 196 100% 10%;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: radial-gradient(hsla(var(--nira-200) / 0.2) 1px, transparent 1px),
+                      radial-gradient(hsla(var(--nira-300) / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    position: relative;
+    overflow-x: hidden;
+    animation: subtle-bg-shift 30s ease-in-out infinite alternate;
+  }
+
+  @keyframes subtle-bg-shift {
+    0% {
+      background-position: 0 0, 25px 25px;
+    }
+    100% {
+      background-position: 25px 25px, 0 0;
+    }
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, hsla(var(--nira-100) / 0.3), transparent 70%),
+                radial-gradient(circle at bottom left, hsla(var(--nira-200) / 0.2), transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+    animation: gradient-shift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+
+  /* Floating bubbles background */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 30%, hsla(var(--nira-100) / 0.4) 0%, transparent 8%),
+      radial-gradient(circle at 80% 40%, hsla(var(--nira-200) / 0.3) 0%, transparent 15%),
+      radial-gradient(circle at 10% 60%, hsla(var(--nira-300) / 0.2) 0%, transparent 12%),
+      radial-gradient(circle at 70% 80%, hsla(var(--nira-400) / 0.1) 0%, transparent 10%);
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+    animation: float-background 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes float-background {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 10% 10%;
+    }
+  }
+}
+
+/* Sidebar styles */
+.sidebar-link {
+  @apply text-lg font-medium py-2.5;
+}
+
+/* Colorful Theme Styles */
+.heading-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-nira-500 to-purple-600;
+}
+
+.glass-panel {
+  @apply bg-white/70 dark:bg-gray-900/60 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300 hover:shadow-md;
+}
+
+.glass-card {
+  @apply bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800;
+}
+
+.colorful-card {
+  @apply rounded-xl border shadow-sm relative overflow-hidden;
+}
+
+.colorful-card-blue {
+  @apply bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-100 dark:border-blue-900/30;
+}
+
+.colorful-card-green {
+  @apply bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-green-100 dark:border-green-900/30;
+}
+
+.colorful-card-purple {
+  @apply bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 border-purple-100 dark:border-purple-900/30;
+}
+
+.colorful-card-orange {
+  @apply bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 border-orange-100 dark:border-orange-900/30;
+}
+
+/* Animation Styles */
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+.animate-breathe-in {
+  animation: breathe-in 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-punch {
+  animation: punch 0.5s ease-in-out;
+}
+
+/* Ambient animations for background elements */
+.animate-drift {
+  animation: drift 40s ease-in-out infinite alternate;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}
+
+/* Custom Keyframes */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes breathe-in {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes punch {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  50% {
+    transform: rotate(-30deg) translateX(-20px);
+  }
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(3%, 2%) rotate(1deg);
+  }
+  100% {
+    transform: translate(-2%, -1%) rotate(-1deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Interactive Elements */
+.hover-scale {
+  @apply transition-transform duration-200 hover:scale-105;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-glow;
+}
+
+.hover-bounce {
+  @apply transition-transform hover:animate-bounce-gentle;
+}
+
+.hover-rotate {
+  @apply transition-transform duration-300 hover:rotate-3;
+}
+
+/* Additional styling for consistency across the app */
+h1, h2, h3, h4, h5, h6 {
+  @apply tracking-tight;
+}
+
+button, a {
+  @apply transition-colors;
+}
+
+.glass-effect {
+  @apply bg-gradient-to-tr from-white/40 to-white/10 dark:from-gray-900/40 dark:to-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-800/20;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Water ripple animation for the water game */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple-effect 1s linear;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Shimmer effect for cards */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 3s infinite;
+}
+
+/* Glowing pulse effect for important elements */
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(14, 149, 230, 0);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(14, 149, 230, 0.5);
+  }
+}
+
+/* Floating elements for a more lively UI */
+.floating-element {
+  animation: floating 6s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  25% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0);
+  }
+  75% {
+    transform: translateY(5px) rotate(1deg);
+  }
+}
+
+/* Gentle wave effect */
+.wave-animation {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-animation::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(90deg, transparent, hsla(var(--nira-200) / 0.3), transparent);
+  animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Switch animation - increased size */
+.switch-container {
+  transform: scale(1.5);
+  transform-origin: center;
+}
+
+/* Plate smashing animation */
+@keyframes smash-plate {
+  0% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1.1) rotate(0);
+  }
+  30% {
+    transform: scale(1.1) rotate(0);
+  }
+  100% {
+    transform: scale(0.7) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.smash-animation {
+  animation: smash-plate 0.5s forwards;
+}
+
+/* Breathe circle animation for breathing exercises */
+.breathe-circle {
+  transition: transform 4s cubic-bezier(0.5, 0, 0.5, 1);
+  transform-origin: center;
+}
+
+.breathe-circle.inhale {
+  transform: scale(1.5);
+}
+
+.breathe-circle.exhale {
+  transform: scale(1);
+}
+
+.breathe-text {
+  transition: opacity 0.5s ease;
+}
+
+/* New ambient background animations */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  z-index: -1;
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, hsla(var(--nira-300) / 0.5), transparent 70%);
+  top: 10%;
+  left: 5%;
+}
+
+.orb-2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, hsla(var(--nira-200) / 0.4), transparent 70%);
+  bottom: 10%;
+  right: 5%;
+  animation-delay: 2s;
+}
+
+.orb-3 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, hsla(var(--nira-400) / 0.3), transparent 70%);
+  top: 50%;
+  right: 15%;
+  animation-delay: 5s;
+}
+
+/* Enhanced glass panel effect */
+.enhanced-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+
+.dark .enhanced-glass {
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
